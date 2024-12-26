@@ -8,6 +8,7 @@ const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [react()],
+  base: '/portfolio-showcase/', // Add this line
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
@@ -15,9 +16,9 @@ export default defineConfig({
   },
   server: {
     port: 3001,
-    open: true // This will open the browser automatically
+    open: true
   },
-  root: '.',  // This ensures Vite looks in the right place
+  root: '.',
   build: {
     outDir: 'dist',
   }
