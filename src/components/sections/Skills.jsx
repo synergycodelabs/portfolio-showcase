@@ -1,13 +1,30 @@
 import React, { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import {
-  Terminal, Database, Network, Shield,
-  Wrench, Code2, Server, Globe, LifeBuoy,
-  Cloud, Monitor, Laptop, Download,
-  Briefcase, FileSpreadsheet
+  Terminal,
+  Database,
+  Network,
+  Shield,
+  Wrench,
+  Code2,
+  Server,
+  Globe,
+  LifeBuoy,
+  Cloud,
+  Monitor,
+  Laptop,
+  Download,
+  Briefcase,
+  FileSpreadsheet,
+  // 1) Import Bot here
+  Bot,
 } from 'lucide-react';
+
 import NavigationIndicator from '../ui/NavigationIndicator';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+
+// 1) Import your SEO component
+import SEO from '../common/SEO';
 
 const Skills = ({ theme }) => {
   useEffect(() => {
@@ -138,7 +155,7 @@ const Skills = ({ theme }) => {
   ];
 
   const tools = {
-    AI: [  // Change from "ai" to "AI"
+    AI: [
       "AI-Assisted Development",
       "Workflow Automation", 
       "Code Generation",
@@ -181,7 +198,7 @@ const Skills = ({ theme }) => {
         <div className="bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
           <div
             className="bg-blue-500 h-1.5 rounded-full transition-all duration-1000"
-            style={{ 
+            style={{
               width: `${isExpanded ? Math.min(skill.level - 2, 93) : Math.min(skill.level, 95)}%`
             }}
           />
@@ -226,123 +243,148 @@ const Skills = ({ theme }) => {
   );
 
   return (
-    <section id="skills" className={`min-h-screen py-16 ${
-      theme === 'dark' 
-        ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
-    }`}>
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700 reveal opacity-0">
-          Skills & Expertise
-        </h2>
+    <>
+      {/* 2) Use the SEO component at the top of the return */}
+      <SEO
+        path="/skills"
+        title="Skills - Angel Guevara | IT Specialist & Developer"
+        description="Explore my technical skills, programming expertise, and experience in network administration, cloud technologies, and more."
+      />
 
-        {/* Certifications & Languages Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 reveal opacity-0">
-          {/* Certifications Card */}
-          <Card className={`transform hover:scale-105 transition-all duration-300 ${
-            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-          }`}>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Shield className="h-5 w-5 text-blue-500" />
-                Certifications
-              </h3>
-              <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {cert.icon}
-                      <span className="font-medium">{cert.name}</span>
-                    </div>
-                    <span className="text-green-500 text-sm">{cert.status}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      <section 
+        id="skills"
+        className={`min-h-screen py-16 ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900' 
+            : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700 reveal opacity-0">
+            Skills & Expertise
+          </h2>
 
-          {/* Languages Card */}
-          <Card className={`transform hover:scale-105 transition-all duration-300 ${
-            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-          }`}>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Globe className="h-5 w-5 text-blue-500" />
-                Languages
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {languages.map((lang, index) => (
-                  <div key={index} className={`p-3 rounded-lg border ${
-                    theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-                  }`}>
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium">{lang.name}</span>
-                      <span className="text-blue-500">{lang.level}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Main Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 reveal opacity-0">
-          <Accordion type="single" collapsible className="space-y-4">
-            {skillCategories.slice(0, Math.ceil(skillCategories.length / 2)).map((category) => (
-              <SkillCard key={category.id} category={category} />
-            ))}
-          </Accordion>
-          <Accordion type="single" collapsible className="space-y-4">
-            {skillCategories.slice(Math.ceil(skillCategories.length / 2)).map((category) => (
-              <SkillCard key={category.id} category={category} />
-            ))}
-          </Accordion>
-        </div>
-
-        {/* Additional Tools Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 reveal opacity-0">
-          {Object.entries(tools).map(([category, toolList]) => (
-            <Card key={category} className={`transform hover:scale-105 transition-all duration-300 ${
-              theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-            }`}>
+          {/* Certifications & Languages Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 reveal opacity-0">
+            {/* Certifications Card */}
+            <Card
+              className={`transform hover:scale-105 transition-all duration-300 ${
+                theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+              }`}
+            >
               <CardContent className="p-6">
-                <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  {category === 'office' && <FileSpreadsheet className="h-5 w-5 text-blue-500" />}
-                  {category === 'deployment' && <Download className="h-5 w-5 text-blue-500" />}
-                  {category === 'specialized' && <Briefcase className="h-5 w-5 text-blue-500" />}
-                  {category === 'security' && <Shield className="h-5 w-5 text-blue-500" />}
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {toolList.map((tool, index) => (
-                    <span
-                      key={index}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 
-                        hover:scale-105 ${
-                        theme === 'dark'
-                          ? 'bg-gray-700/50 text-gray-300 hover:bg-blue-500/20'
-                          : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
-                      }`}
-                    >
-                      {tool}
-                    </span>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-blue-500" />
+                  Certifications
+                </h3>
+                <div className="space-y-4">
+                  {certifications.map((cert, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        {cert.icon}
+                        <span className="font-medium">{cert.name}</span>
+                      </div>
+                      <span className="text-green-500 text-sm">{cert.status}</span>
+                    </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
 
-        <div className="flex justify-center mt-8">
-          <NavigationIndicator 
-            previousSection="experience" 
-            targetSection="projects" 
-            showHome={true}
-          />
+            {/* Languages Card */}
+            <Card
+              className={`transform hover:scale-105 transition-all duration-300 ${
+                theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+              }`}
+            >
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-blue-500" />
+                  Languages
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {languages.map((lang, index) => (
+                    <div
+                      key={index}
+                      className={`p-3 rounded-lg border ${
+                        theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+                      }`}
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">{lang.name}</span>
+                        <span className="text-blue-500">{lang.level}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Skills Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 reveal opacity-0">
+            <Accordion type="single" collapsible className="space-y-4">
+              {skillCategories.slice(0, Math.ceil(skillCategories.length / 2)).map((category) => (
+                <SkillCard key={category.id} category={category} />
+              ))}
+            </Accordion>
+            <Accordion type="single" collapsible className="space-y-4">
+              {skillCategories.slice(Math.ceil(skillCategories.length / 2)).map((category) => (
+                <SkillCard key={category.id} category={category} />
+              ))}
+            </Accordion>
+          </div>
+
+          {/* Additional Tools Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 reveal opacity-0">
+            {Object.entries(tools).map(([category, toolList]) => (
+              <Card
+                key={category}
+                className={`transform hover:scale-105 transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-gray-800/50 border-gray-700'
+                    : 'bg-white/50 border-gray-200'
+                }`}
+              >
+                <CardContent className="p-6">
+                  <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    {category === 'office' && <FileSpreadsheet className="h-5 w-5 text-blue-500" />}
+                    {category === 'deployment' && <Download className="h-5 w-5 text-blue-500" />}
+                    {category === 'specialized' && <Briefcase className="h-5 w-5 text-blue-500" />}
+                    {category === 'security' && <Shield className="h-5 w-5 text-blue-500" />}
+                    {category === 'AI' && <Bot className="h-5 w-5 text-blue-500" />}
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {toolList.map((tool, index) => (
+                      <span
+                        key={index}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 
+                          hover:scale-105 ${
+                          theme === 'dark'
+                            ? 'bg-gray-700/50 text-gray-300 hover:bg-blue-500/20'
+                            : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
+                        }`}
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="flex justify-center mt-8">
+            <NavigationIndicator 
+              previousSection="experience" 
+              targetSection="projects" 
+              showHome={true}
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

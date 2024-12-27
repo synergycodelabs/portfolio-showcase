@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
-import { Code2, Server, Bot, GitBranch, Network, Database, Monitor } from 'lucide-react';
+import { Code2, Server, Bot, Network, Database, Monitor } from 'lucide-react';
 import NavigationIndicator from '../ui/NavigationIndicator';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+
+// 1) Import the SEO component
+import SEO from '../common/SEO';
 
 const Projects = ({ theme }) => {
   useEffect(() => {
@@ -180,39 +183,51 @@ const Projects = ({ theme }) => {
   const midPoint = Math.ceil(projects.length / 2);
 
   return (
-    <section id="projects" className={`py-20 ${
-      theme === 'dark' 
-        ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
-    }`}>
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700 reveal opacity-0">
-          Projects & Implementations
-        </h2>
+    <>
+      {/* 2) Use the SEO component at the top of the return */}
+      <SEO
+        path="/projects"
+        title="Projects - Angel Guevara | IT Specialist & Developer"
+        description="Explore completed projects showcasing my expertise in network management, automation development, database systems, and more."
+      />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 reveal opacity-0">
-          <Accordion type="single" collapsible className="space-y-4">
-            {projects.slice(0, midPoint).map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </Accordion>
+      <section
+        id="projects"
+        className={`py-20 ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900' 
+            : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
+        }`}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700 reveal opacity-0">
+            Projects & Implementations
+          </h2>
 
-          <Accordion type="single" collapsible className="space-y-4">
-            {projects.slice(midPoint).map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </Accordion>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 reveal opacity-0">
+            <Accordion type="single" collapsible className="space-y-4">
+              {projects.slice(0, midPoint).map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </Accordion>
+
+            <Accordion type="single" collapsible className="space-y-4">
+              {projects.slice(midPoint).map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </Accordion>
+          </div>
+
+          <div className="flex justify-center pb-8">
+            <NavigationIndicator 
+              previousSection="skills" 
+              targetSection="resume" 
+              showHome={true}
+            />
+          </div>
         </div>
-
-        <div className="flex justify-center pb-8">
-          <NavigationIndicator 
-            previousSection="skills" 
-            targetSection="resume" 
-            showHome={true}
-          />
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
