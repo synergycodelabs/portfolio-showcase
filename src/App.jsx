@@ -14,7 +14,7 @@ const App = () => {
   const [theme, toggleTheme] = useTheme();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/portfolio-showcase">
       <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}>
         <div className={`${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors duration-200`}>
           <header className={`fixed top-0 w-full ${theme === 'dark' ? 'bg-gray-900/80' : 'bg-white/80'} backdrop-blur-sm z-50 p-4`}>
