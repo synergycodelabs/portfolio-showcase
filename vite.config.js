@@ -7,7 +7,7 @@ import { viteSitemapPlugin } from 'vite-plugin-sitemap'
 export default defineConfig({
   plugins: [
     react(),
-    viteSitemapPlugin({
+    process.env.NODE_ENV === 'production' && viteSitemapPlugin({
       hostname: 'https://synergycodelabs.github.io/portfolio-showcase/',
       routes: [
         '/',
@@ -17,9 +17,11 @@ export default defineConfig({
         '/projects',
         '/resume',
         '/contact'
-      ]
+      ],
+      exclude: ['/404'],
+      generateRobotsTxt: true
     })
-  ],
+  ].filter(Boolean),
   base: '/portfolio-showcase/',
   resolve: {
     alias: {
