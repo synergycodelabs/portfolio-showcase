@@ -140,7 +140,7 @@ const About = ({ theme }) => {
                 </div>
                 <div className="text-center">
                   <h3 className="text-2xl font-bold">Associate of Applied Science</h3>
-                  <p className="text-blue-500 text-lg">Computer Systems & Network Technology</p>
+                  <p className="text-blue-500 text-lg">Computer Systems Technology</p>
                 </div>
               </div>
 

@@ -31,7 +31,7 @@ const Resume = ({ theme }) => {
   const contactInfo = {
     name: "Angel Guevara",
     title: "IT Specialist & Developer",
-    address: "48 Hancox Avenue Floor 1st, Nutley, NJ 07110",
+    address: "North New Jersey/NYC Metro Area",
     email: "angel.guevara@synergycodelabs.com"
   };
 
@@ -47,7 +47,7 @@ const Resume = ({ theme }) => {
   ];
 
   const education = {
-    degree: "Associate of Applied Science in Information Technology",
+    degree: "Associate of Applied Science in Computer Systems Technology",
     school: "Inter-American University",
     location: "Bayamon, PR"
   };
