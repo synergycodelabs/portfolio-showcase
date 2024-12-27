@@ -1,27 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import sitemap from 'vite-plugin-sitemap'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    process.env.NODE_ENV === 'production' && sitemap.default({
-      hostname: 'https://synergycodelabs.github.io/portfolio-showcase/',
-      routes: [
-        '/',
-        '/about',
-        '/experience',
-        '/skills',
-        '/projects',
-        '/resume',
-        '/contact'
-      ],
-      exclude: ['/404'],
-      generateRobotsTxt: true
-    })
-  ].filter(Boolean),
+  plugins: [react()],
   base: '/portfolio-showcase/',
   resolve: {
     alias: {
