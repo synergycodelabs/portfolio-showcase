@@ -19,7 +19,7 @@ const App = () => {
         <div className={`${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors duration-200`}>
           <header className={`fixed top-0 w-full ${theme === 'dark' ? 'bg-gray-900/80' : 'bg-white/80'} backdrop-blur-sm z-50 p-4`}>
             <nav className="max-w-6xl mx-auto flex justify-between items-center">
-              <h1 className="text-2xl font-bold">Angel Guevara</h1>
+              <h1 className="text-2xl font-bold">Angel's Porftolio</h1>
               <div className="flex items-center space-x-6">
                 <NavLink to="/" className={({ isActive }) => 
                   `transition-colors ${isActive ? 'text-blue-500' : 'hover:text-blue-500'}`
