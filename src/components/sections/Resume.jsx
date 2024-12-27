@@ -32,7 +32,7 @@ const Resume = ({ theme }) => {
     name: "Angel Guevara",
     address: "48 Hancox Avenue Floor 1st, Nutley, NJ 07110",
     phone: "215-692-0265",
-    email: "angel.guevara.ags@outlook.com"
+    email: "angel.guevara@synergycodelabs.com"
   };
 
   const certifications = [
