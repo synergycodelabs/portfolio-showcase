@@ -1,384 +1,270 @@
-import React, { useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import {
-  Terminal,
-  Database,
-  Network,
-  Shield,
-  Wrench,
-  Code2,
-  Server,
-  Globe,
-  LifeBuoy,
-  Cloud,
-  Monitor,
-  Laptop,
-  Download,
-  Briefcase,
-  FileSpreadsheet,
-  // 1) Import Bot here
-  Bot,
+import React, { useEffect, useState } from 'react';
+import { 
+  Bot, Code2, Network, Database, Shield, Server,
+  Laptop, Terminal, Cloud, BrainCircuit, Globe
 } from 'lucide-react';
-
-import NavigationIndicator from '../ui/NavigationIndicator';
+import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-
-// 1) Import your SEO component
+import NavigationIndicator from '../ui/NavigationIndicator';
 import SEO from '../common/SEO';
 
 const Skills = ({ theme }) => {
   useEffect(() => {
-    // Reset animation classes
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          entry.target.style.opacity = '1';
+        }
+      });
+    });
+
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.remove('animate-fade-in');
       el.style.opacity = '0';
+      observer.observe(el);
     });
-  
-    // Short delay to ensure reset happens
-    setTimeout(() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-            entry.target.style.opacity = '1';
-          }
-        });
-      });
-  
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-      return () => observer.disconnect();
-    }, 50);
+
+    return () => observer.disconnect();
   }, [theme]);
 
-  const skillCategories = [
-    {
-      id: "development",
-      title: "Programming & Web Technologies",
-      icon: <Code2 className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "Python", level: 85 },
-        { name: "JavaScript", level: 80 },
-        { name: "Node.js", level: 75 },
-        { name: "React", level: 70 },
-        { name: "Flask/FastAPI", level: 75 },
-        { name: "HTML/CSS", level: 85 },
-        { name: "WebSocket", level: 70 },
-        { name: "Bash", level: 80 },
-        { name: "VBA (Excel)", level: 85 }
+  const technicalDomains = {
+    aiAndAutomation: {
+      title: "AI & Automation Engineering",
+      icon: <Bot className="h-6 w-6 text-blue-500" />,
+      description: "Specialized in leveraging AI for development and automation",
+      expertise: [
+        {
+          area: "AI Integration",
+          details: "Expert in integrating various AI platforms (Claude, ChatGPT, Gemini) into development workflows",
+          technologies: ["Claude API", "OpenAI API", "Google AI", "Custom Chatbots"],
+          useCase: {
+            title: "Automated Code Review System",
+            description: "Developed an AI-powered code review system that automatically checks code quality, suggests improvements, and ensures compliance with best practices.",
+            impact: "Reduced code review time by 60%"
+          }
+        },
+        {
+          area: "Process Automation",
+          details: "Creating efficient automation solutions using AI-assisted development",
+          technologies: ["Python", "PowerShell", "Bash", "Task Scheduling"],
+          useCase: {
+            title: "Workflow Automation Suite",
+            description: "Built a comprehensive automation system for routine IT tasks, integrating AI for intelligent decision-making and error handling.",
+            impact: "Automated 75% of routine tasks"
+          }
+        }
       ]
     },
-    {
-      id: "ai-engineering",
-      title: "AI & Prompt Engineering",
-      icon: <Terminal className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "Claude (Anthropic)", level: 90 },
-        { name: "ChatGPT (OpenAI)", level: 85 },
-        { name: "Windows Copilot", level: 80 },
-        { name: "Google Gemini", level: 75 },
-        { name: "Prompt Design", level: 85 },
-        { name: "AI Integration", level: 80 },
-        { name: "Custom Chatbot Development", level: 85 },
-        { name: "AI API Implementation", level: 80 }
+    infrastructureManagement: {
+      title: "Infrastructure & Networking",
+      icon: <Network className="h-6 w-6 text-blue-500" />,
+      description: "Expert in designing and maintaining secure network infrastructure",
+      expertise: [
+        {
+          area: "Network Architecture",
+          details: "Designing and implementing enterprise-level network solutions",
+          technologies: ["Cisco Meraki", "VPN", "Firewalls", "TCP/IP"],
+          useCase: {
+            title: "Enterprise Network Upgrade",
+            description: "Led complete network infrastructure upgrade using Cisco Meraki, implementing advanced security features and optimizing performance.",
+            impact: "99.9% network uptime achieved"
+          }
+        },
+        {
+          area: "Security Implementation",
+          details: "Implementing comprehensive security measures across infrastructure",
+          technologies: ["Network Security", "Access Control", "Security Protocols"],
+          useCase: {
+            title: "Zero-Trust Architecture",
+            description: "Implemented zero-trust security architecture with advanced access controls and monitoring.",
+            impact: "Zero security breaches post-implementation"
+          }
+        }
       ]
     },
-    {
-      id: "databases",
-      title: "Databases & Data Management",
+    systemsAndDatabases: {
+      title: "Systems & Database Administration",
       icon: <Database className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "MSSQL", level: 85 },
-        { name: "MS Access", level: 90 },
-        { name: "PostgreSQL", level: 75 },
-        { name: "MongoDB", level: 70 },
-        { name: "EDI Transactions", level: 85 }
+      description: "Expertise in managing and optimizing database systems",
+      expertise: [
+        {
+          area: "Database Management",
+          details: "Optimizing database performance and ensuring data integrity",
+          technologies: ["MSSQL", "MS Access", "PostgreSQL", "MongoDB"],
+          useCase: {
+            title: "Database Performance Optimization",
+            description: "Redesigned database architecture and implemented advanced caching strategies for improved performance.",
+            impact: "85% faster query response times"
+          }
+        },
+        {
+          area: "System Integration",
+          details: "Managing EDI systems for direct mail marketing operations",
+          technologies: ["EDI Transaction Sets", "Data Validation", "Order Processing"],
+          useCase: {
+            title: "Direct Mail EDI System Enhancement",
+            description: "Modernized EDI systems for processing customer orders in direct mail marketing, implementing automated validation for purchase orders, shipping notices, and invoices.",
+            impact: "70% faster order processing with improved accuracy"
+          }
+        }
       ]
     },
-    {
-      id: "cloud-platforms",
+    cloudAndDevTools: {
       title: "Cloud & Development Tools",
       icon: <Cloud className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "Microsoft 365 Admin", level: 85 },
-        { name: "Azure", level: 75 },
-        { name: "GitHub", level: 80 },
-        { name: "Docker", level: 75 },
-        { name: "VS Code", level: 85 }
-      ]
-    },
-    {
-      id: "support-tools",
-      title: "Support & Monitoring",
-      icon: <LifeBuoy className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "Zendesk", level: 90 },
-        { name: "Jira/Trello", level: 85 },
-        { name: "ContentCatcher", level: 80 },
-        { name: "N-Able", level: 80 },
-        { name: "Remote Support Tools", level: 90 }
-      ]
-    },
-    {
-      id: "infrastructure",
-      title: "Infrastructure & Systems",
-      icon: <Server className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "Windows Server", level: 90 },
-        { name: "Linux (Ubuntu)", level: 80 },
-        { name: "VMware", level: 85 },
-        { name: "Hyper-V", level: 80 },
-        { name: "Active Directory", level: 85 }
-      ]
-    },
-    {
-      id: "networking",
-      title: "Networking & Security",
-      icon: <Network className="h-6 w-6 text-blue-500" />,
-      skills: [
-        { name: "TCP/IP", level: 90 },
-        { name: "DNS/Firewalls", level: 85 },
-        { name: "VPN", level: 80 },
-        { name: "Cisco Meraki", level: 85 },
-        { name: "Network Security", level: 85 }
+      description: "Proficient in cloud platforms and modern development tools",
+      expertise: [
+        {
+          area: "Cloud Services",
+          details: "Managing and deploying cloud-based solutions",
+          technologies: ["Microsoft 365", "Azure", "Cloud Security"],
+          useCase: {
+            title: "Cloud Migration Project",
+            description: "Led migration of on-premise systems to cloud infrastructure, implementing best practices for security and performance.",
+            impact: "40% reduction in IT infrastructure costs"
+          }
+        },
+        {
+          area: "Development Environment",
+          details: "Setting up and maintaining efficient development environments",
+          technologies: ["VS Code", "Git", "Docker", "CI/CD"],
+          useCase: {
+            title: "DevOps Implementation",
+            description: "Established modern DevOps practices and tooling for development teams.",
+            impact: "50% faster deployment cycles"
+          }
+        }
       ]
     }
-  ];
-
-  const languages = [
-    { name: "English", level: "Fluent" },
-    { name: "Spanish", level: "Fluent" }
-  ];
-
-  const certifications = [
-    { name: "CompTIA A+", status: "Verified", icon: <Shield className="h-5 w-5 text-green-500" /> },
-    { name: "CompTIA Network+", status: "Verified", icon: <Shield className="h-5 w-5 text-green-500" /> }
-  ];
-
-  const tools = {
-    AI: [
-      "AI-Assisted Development",
-      "Workflow Automation", 
-      "Code Generation",
-      "Technical Documentation"
-    ],
-    office: [
-      "Advanced Excel",
-      "PowerShell Scripting",
-      "SharePoint Admin",
-      "Exchange Management"
-    ],
-    deployment: [
-      "Microsoft Deployment Toolkit",
-      "Windows Deployment Services",
-      "Group Policy Management",
-      "System Center"
-    ],
-    specialized: [
-      "Power Platform",
-      "Crystal Reports",
-      "Enterprise Software",
-      "Business Intelligence"
-    ],
-    security: [
-      "Endpoint Protection",
-      "Network Security",
-      "Access Management",
-      "Security Compliance"
-    ]
   };
 
-  const SkillBar = ({ skill, theme, isExpanded }) => (
-    <div className={`mb-3 ${isExpanded ? 'ml-14' : ''}`}>
-      <div className="mb-1">
-        <span className={`text-base font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-          {skill.name}
-        </span>
-      </div>
-      <div className={`relative ${isExpanded ? 'w-[88.2%]' : 'w-11/12'}`}>
-        <div className="bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
-          <div
-            className="bg-blue-500 h-1.5 rounded-full transition-all duration-1000"
-            style={{
-              width: `${isExpanded ? Math.min(skill.level - 2, 93) : Math.min(skill.level, 95)}%`
-            }}
-          />
-        </div>
-        <span className={`absolute right-0 -top-6 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-          {isExpanded ? Math.min(skill.level - 2, 93) : Math.min(skill.level, 95)}%
-        </span>
-      </div>
-    </div>
-  );
-
-  const SkillCard = ({ category }) => (
-    <AccordionItem
-      value={category.id}
-      className={`rounded-xl border reveal opacity-0 ${
-        theme === 'dark' 
-          ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800' 
-          : 'bg-white/50 border-gray-200 hover:bg-white'
-      } hover:shadow-xl transition-all duration-300`}
-    >
-      <AccordionTrigger className="w-full px-6 py-4 hover:no-underline">
-        <div className="flex items-start w-full">
+  const SkillCard = ({ domain, data }) => (
+    <Card className={`${
+      theme === 'dark' 
+        ? 'bg-gray-800/50 border-gray-700' 
+        : 'bg-white/50 border-gray-200'
+    } hover:shadow-lg transition-all duration-300`}>
+      <CardContent className="p-6">
+        <div className="flex items-center gap-3 mb-6">
           <div className={`p-2 rounded-lg ${
             theme === 'dark' ? 'bg-gray-700' : 'bg-blue-50'
           }`}>
-            {category.icon}
+            {data.icon}
           </div>
-          <div className="ml-4 text-left flex-1">
-            <h3 className="text-lg font-semibold mb-4">{category.title}</h3>
-            {category.skills.slice(0, 2).map((skill, index) => (
-              <SkillBar key={index} skill={skill} theme={theme} isExpanded={false} />
-            ))}
+          <div>
+            <h3 className="text-xl font-bold">{data.title}</h3>
+            <p className={`text-sm ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              {data.description}
+            </p>
           </div>
         </div>
-      </AccordionTrigger>
-      <AccordionContent className="px-6 pb-4">
-        {category.skills.slice(2).map((skill, index) => (
-          <SkillBar key={index} skill={skill} theme={theme} isExpanded={true} />
-        ))}
-      </AccordionContent>
-    </AccordionItem>
+
+        <Accordion type="single" collapsible className="space-y-4">
+          {data.expertise.map((item, index) => (
+            <AccordionItem
+              key={index}
+              value={`${domain}-${index}`}
+              className={`border rounded-lg ${
+                theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+              }`}
+            >
+              <AccordionTrigger className="px-4 hover:no-underline">
+                <div className="text-left">
+                  <h4 className="text-lg font-semibold">{item.area}</h4>
+                  <p className={`text-sm ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {item.details}
+                  </p>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4">
+                {/* Technologies */}
+                <div className="mb-4">
+                  <h5 className="text-sm font-semibold mb-2">Technologies</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {item.technologies.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className={`px-3 py-1 rounded-full text-sm ${
+                          theme === 'dark'
+                            ? 'bg-gray-700 text-gray-300'
+                            : 'bg-gray-100 text-gray-700'
+                        }`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Use Case */}
+                <div className={`p-4 rounded-lg ${
+                  theme === 'dark' ? 'bg-gray-700/50' : 'bg-gray-50'
+                }`}>
+                  <h5 className="font-semibold mb-2">{item.useCase.title}</h5>
+                  <p className={`text-sm mb-2 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    {item.useCase.description}
+                  </p>
+                  <div className={`inline-block px-3 py-1 rounded-full text-sm ${
+                    theme === 'dark'
+                      ? 'bg-blue-900/50 text-blue-200'
+                      : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    Impact: {item.useCase.impact}
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </CardContent>
+    </Card>
   );
 
   return (
     <>
-      {/* 2) Use the SEO component at the top of the return */}
       <SEO
         path="/skills"
-        title="Skills - Angel Guevara | IT Specialist & Developer"
-        description="Explore my technical skills, programming expertise, and experience in network administration, cloud technologies, and more."
+        title="Technical Skills - Angel Guevara"
+        description="Explore my technical expertise in AI development, infrastructure management, and system administration through real-world implementations and measurable impacts."
       />
 
-      <section 
-        id="skills"
-        className={`min-h-screen py-16 ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900' 
-            : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700 reveal opacity-0">
-            Skills & Expertise
-          </h2>
-
-          {/* Certifications & Languages Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 reveal opacity-0">
-            {/* Certifications Card */}
-            <Card
-              className={`transform hover:scale-105 transition-all duration-300 ${
-                theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-              }`}
-            >
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-blue-500" />
-                  Certifications
-                </h3>
-                <div className="space-y-4">
-                  {certifications.map((cert, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        {cert.icon}
-                        <span className="font-medium">{cert.name}</span>
-                      </div>
-                      <span className="text-green-500 text-sm">{cert.status}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Languages Card */}
-            <Card
-              className={`transform hover:scale-105 transition-all duration-300 ${
-                theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-              }`}
-            >
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Globe className="h-5 w-5 text-blue-500" />
-                  Languages
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {languages.map((lang, index) => (
-                    <div
-                      key={index}
-                      className={`p-3 rounded-lg border ${
-                        theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-                      }`}
-                    >
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium">{lang.name}</span>
-                        <span className="text-blue-500">{lang.level}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+      <section className={`py-20 ${
+        theme === 'dark'
+          ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
+      }`}>
+        <div className="container mx-auto px-4 max-w-6xl">
+          {/* Section Header */}
+          <div className="text-center mb-12 reveal opacity-0">
+            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700">
+              Technical Expertise
+            </h2>
+            <p className={`max-w-2xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              Demonstrating practical applications and real-world impact across key technical domains.
+            </p>
           </div>
 
-          {/* Main Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 reveal opacity-0">
-            <Accordion type="single" collapsible className="space-y-4">
-              {skillCategories.slice(0, Math.ceil(skillCategories.length / 2)).map((category) => (
-                <SkillCard key={category.id} category={category} />
-              ))}
-            </Accordion>
-            <Accordion type="single" collapsible className="space-y-4">
-              {skillCategories.slice(Math.ceil(skillCategories.length / 2)).map((category) => (
-                <SkillCard key={category.id} category={category} />
-              ))}
-            </Accordion>
-          </div>
-
-          {/* Additional Tools Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 reveal opacity-0">
-            {Object.entries(tools).map(([category, toolList]) => (
-              <Card
-                key={category}
-                className={`transform hover:scale-105 transition-all duration-300 ${
-                  theme === 'dark'
-                    ? 'bg-gray-800/50 border-gray-700'
-                    : 'bg-white/50 border-gray-200'
-                }`}
-              >
-                <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                    {category === 'office' && <FileSpreadsheet className="h-5 w-5 text-blue-500" />}
-                    {category === 'deployment' && <Download className="h-5 w-5 text-blue-500" />}
-                    {category === 'specialized' && <Briefcase className="h-5 w-5 text-blue-500" />}
-                    {category === 'security' && <Shield className="h-5 w-5 text-blue-500" />}
-                    {category === 'AI' && <Bot className="h-5 w-5 text-blue-500" />}
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {toolList.map((tool, index) => (
-                      <span
-                        key={index}
-                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 
-                          hover:scale-105 ${
-                          theme === 'dark'
-                            ? 'bg-gray-700/50 text-gray-300 hover:bg-blue-500/20'
-                            : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
-                        }`}
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+          {/* Skills Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 reveal opacity-0">
+            {Object.entries(technicalDomains).map(([domain, data]) => (
+              <SkillCard key={domain} domain={domain} data={data} />
             ))}
           </div>
 
-          <div className="flex justify-center mt-8">
-            <NavigationIndicator 
-              previousSection="experience" 
-              targetSection="projects" 
+          {/* Navigation */}
+          <div className="flex justify-center mt-12">
+            <NavigationIndicator
+              previousSection="experience"
+              targetSection="projects"
               showHome={true}
             />
           </div>
