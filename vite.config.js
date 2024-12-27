@@ -1,10 +1,25 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { viteSitemapPlugin } from 'vite-plugin-sitemap'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    viteSitemapPlugin({
+      hostname: 'https://synergycodelabs.github.io/portfolio-showcase/',
+      routes: [
+        '/',
+        '/about',
+        '/experience',
+        '/skills',
+        '/projects',
+        '/resume',
+        '/contact'
+      ]
+    })
+  ],
   base: '/portfolio-showcase/',
   resolve: {
     alias: {
