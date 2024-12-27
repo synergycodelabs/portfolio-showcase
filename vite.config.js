@@ -8,7 +8,7 @@ const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [react()],
-  base: '/portfolio-showcase/', // Add this line
+  base: '/portfolio-showcase/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
@@ -21,5 +21,11 @@ export default defineConfig({
   root: '.',
   build: {
     outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
   }
 })
