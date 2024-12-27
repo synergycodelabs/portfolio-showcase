@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this line
 import { Monitor, Code, Shield, Mail, Download, Github, Linkedin } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import NavigationIndicator from '../ui/NavigationIndicator';
 
 const Home = ({ theme }) => {
+  const navigate = useNavigate(); // Add this hook
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -19,7 +22,7 @@ const Home = ({ theme }) => {
     });
   
     return () => observer.disconnect();
-  }, [theme]); // Add theme dependency
+  }, [theme]);
 
   return (
     <section id="home" className="min-h-screen flex flex-col justify-between">
@@ -104,21 +107,20 @@ const Home = ({ theme }) => {
 
       {/* CTA Section */}
       <div className="flex justify-center gap-4 py-6 reveal opacity-0 transition-all duration-1000">
-        <a
-          href="#contact"
+        <button
+          onClick={() => navigate('/contact')}
           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 
             transition-all duration-300 hover:scale-105 hover:shadow-lg"
         >
           Contact Me <Mail className="w-5 h-5" />
-        </a>
-        <a
-          href="/Resume"
-          rel="noopener noreferrer"
-          className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 px-6 py-3 
-            rounded-lg flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-        >
-          Download Resume <Download className="w-5 h-5" />
-        </a>
+        </button>
+      <button
+        onClick={() => navigate('/resume')}
+        className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 px-6 py-3 
+          rounded-lg flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+      >
+        Download Resume <Download className="w-5 h-5" />
+      </button>
       </div>
 
       <NavigationIndicator targetSection="about" />

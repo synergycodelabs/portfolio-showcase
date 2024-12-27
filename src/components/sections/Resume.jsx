@@ -1,23 +1,18 @@
 import React, { useEffect } from 'react';
-import { Download, Mail, MapPin, Github, Linkedin } from 'lucide-react';
+import { Download, Mail, MapPin, Code2, Database, Globe, Shield, Server, Monitor, 
+         Calendar, Building, GraduationCap, Briefcase, Bot, Wrench, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { experienceData } from './experience/experienceData';
-import { useNavigate } from 'react-router-dom';
 import NavigationIndicator from '../ui/NavigationIndicator';
+import { workExperience, education, additionalSkills } from './resume/resumeData';
 
 const Resume = ({ theme }) => {
-  const navigate = useNavigate();
-  
   useEffect(() => {
-    // Reset animation classes
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.remove('animate-fade-in');
       el.style.opacity = '0';
     });
   
-    // Short delay to ensure reset happens
     setTimeout(() => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -33,214 +28,246 @@ const Resume = ({ theme }) => {
     }, 50);
   }, [theme]);
 
-  const handleNavigation = (sectionId) => {
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const info = {
+  const contactInfo = {
     name: "Angel Guevara",
-    title: "IT Specialist & Developer", 
-    email: "angel.guevara@synergycodelabs.com",
-    location: "North Jersey/New York City Area",
-    linkedin: "linkedin.com/in/guevaraangel"
+    address: "48 Hancox Avenue Floor 1st, Nutley, NJ 07110",
+    phone: "215-692-0265",
+    email: "angel.guevara.ags@outlook.com"
   };
 
-  const skills = {
-    technical: [
-      "Python", "JavaScript", "React", "Node.js",
-      "SQL", "Linux", "Windows Server", "Network Security"
-    ],
-    tools: [
-      "MS Office Suite", "Docker", "Git",
-      "Cisco Meraki", "VMware", "Active Directory"
-    ]
-  };
-
-  const resumeSections = [
-    {
-      id: "experience",
-      title: "Professional Experience",
-      content: (
-        <div className="space-y-2">
-          {experienceData.slice(0, 3).map((job) => (
-            <div key={job.id} className="py-2">
-              <h3 className="font-semibold text-lg">{job.title}</h3>
-              <p className="text-blue-500">{job.company} | {job.dateRange}</p>
-            </div>
-          ))}
-          <Button 
-            onClick={() => navigate('/Experience')}
-            variant="outline" 
-            className="w-full mt-3 hover:bg-blue-500 hover:text-white transition-colors"
-          >
-            View Full Experience
-          </Button>
-        </div>
-      )
-    },
-    {
-      id: "skills",
-      title: "Technical Skills",
-      content: (
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-medium mb-2">Technical Skills</h4>
-            <div className="flex flex-wrap gap-2">
-              {skills.technical.map((skill, idx) => (
-                <span 
-                  key={idx}
-                  className={`px-3 py-1 rounded-full text-sm transform hover:scale-105 transition-all duration-200 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 text-gray-200 hover:bg-blue-500/20' 
-                      : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
-                  }`}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-medium mb-2">Tools & Software</h4>
-            <div className="flex flex-wrap gap-2">
-              {skills.tools.map((tool, idx) => (
-                <span 
-                  key={idx}
-                  className={`px-3 py-1 rounded-full text-sm transform hover:scale-105 transition-all duration-200 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 text-gray-200 hover:bg-blue-500/20' 
-                      : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
-                  }`}
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </div>
-          
-          <Button 
-            onClick={() => navigate('/skills')}
-            variant="outline" 
-            className="w-full hover:bg-blue-500 hover:text-white transition-colors"
-          >
-            View Detailed Skills
-          </Button>
-        </div>
-      )
-    }
+  const certifications = [
+    { name: "CompTIA A+ Certification", status: "Completed" },
+    { name: "CompTIA Network+ Certification", status: "Completed" }
   ];
 
   return (
-    <section id="resume" className={`min-h-screen py-16 ${
+    <section className={`min-h-screen py-16 ${
       theme === 'dark'
         ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-b from-gray-50 via-white to-gray-100'
     }`}>
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="flex justify-between items-center mb-4 reveal opacity-0">
+      <div className="container mx-auto px-4 max-w-5xl">
+        {/* Header with Contact Info */}
+        <div className="flex justify-between items-start mb-8 reveal opacity-0">
           <div>
             <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700">
-              {info.name}
+              {contactInfo.name}
             </h1>
-            <p className={`text-xl mt-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-              {info.title}
-            </p>
+            <div className="mt-4 space-y-2">
+              <p className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-blue-500" />
+                <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
+                  {contactInfo.address}
+                </span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-blue-500" />
+                <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
+                  {contactInfo.email}
+                </span>
+              </p>
+            </div>
           </div>
-          <Button 
-            onClick={() => window.open('/resume.pdf', '_blank')}
-            className="flex items-center gap-2"
+          <button
+            onClick={() => window.open('/portfolio-showcase/resume.pdf', '_blank')}
+            className={`${
+              theme === 'dark' 
+                ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
+            } px-6 py-3 rounded-lg flex items-center gap-2 transition-all duration-300 
+              hover:scale-105 hover:shadow-lg focus:outline-none`}
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-5 h-5" />
             Download PDF
-          </Button>
+          </button>
         </div>
 
-        <Card className={`mb-4 transform hover:scale-105 transition-all duration-300 reveal opacity-0 ${
+        {/* Professional Summary */}
+        <Card className={`mb-8 reveal opacity-0 transform hover:scale-105 transition-all duration-300 ${
           theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
         }`}>
-          <CardContent className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-blue-500" />
-                <span>{info.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-blue-500" />
-                <span>{info.location}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Linkedin className="w-4 h-4 text-blue-500" />
-                <a href={`https://${info.linkedin}`} target="_blank" rel="noopener noreferrer" 
-                   className="hover:text-blue-500">
-                  {info.linkedin}
-                </a>
-              </div>
-            </div>
+          <CardContent className="p-6">
+            <h2 className="text-2xl font-bold mb-4">Professional Summary</h2>
+            <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+              Versatile IT specialist with 10+ years of experience in technical support, system administration, and application management. 
+              Proven expertise in troubleshooting complex issues, providing excellent customer service, and leveraging analytical thinking to solve technical challenges. 
+              Skilled in user support, system updates, and cross-functional collaboration to enhance application performance and user experience.
+            </p>
           </CardContent>
         </Card>
 
-        {/* Professional Summary */}
-        <div className={`mb-4 p-4 rounded-xl border reveal opacity-0 ${
-          theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-        }`}>
-          <h2 className="text-xl font-semibold mb-2">Professional Summary</h2>
-          <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-            IT specialist with 10+ years of experience in technical support, system administration, and modern development practices. 
-            Proven track record in implementing AI-assisted solutions and managing complex infrastructure. Skilled in user support, system updates, and cross-functional collaboration to enhance application performance and user experience. 
-            Proficient in various databases, web applications, and AI-assisted tools for efficient problem-solving and code development. 
-            Bilingual in English and Spanish.
-          </p>
+        {/* Certifications and Languages Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Certifications Card */}
+          <Card className={`reveal opacity-0 transform hover:scale-105 transition-all duration-300 ${
+            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+          }`}>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-bold mb-4">Certifications</h2>
+              <div className="space-y-4">
+                {certifications.map((cert, index) => (
+                  <div key={index} className="flex justify-between items-start">
+                    <div>
+                      <p className="font-medium">{cert.name}</p>
+                      {cert.completion && (
+                        <p className="text-sm text-blue-500">{cert.completion}</p>
+                      )}
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-sm ${
+                      cert.status === 'Completed'
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                        : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                    }`}>
+                      {cert.status}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Education Card */}
+          <Card className={`reveal opacity-0 transform hover:scale-105 transition-all duration-300 ${
+            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+          }`}>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <GraduationCap className="w-7 h-7 text-blue-500" />
+                <h2 className="text-2xl font-bold">Education</h2>
+              </div>
+              <div className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
+                <h3 className="text-xl font-semibold">{education.degree}</h3>
+                <p className="text-blue-500">{education.school}</p>
+                <p>{education.location}</p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Education Section */}
-        <div className={`mb-4 p-4 rounded-xl border reveal opacity-0 ${
-          theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
-        }`}>
-          <h2 className="text-xl font-semibold mb-3">Education</h2>
-          <div className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-            <h3 className="text-lg font-semibold">Associate of Applied Science</h3>
-            <p className="text-blue-500">Computer Systems & Network Technology</p>
-            <p className="text-sm mt-1">Inter-American University of Puerto Rico</p>
-            
-            <div className="mt-4">
-              <h4 className="font-medium mb-2">Certifications</h4>
-              <ul className="list-disc list-inside space-y-1">
-                <li>CompTIA A+</li>
-                <li>CompTIA Network+</li>
-              </ul>
-            </div>
-          </div>
+        {/* Work Experience Section */}
+        <div className="mb-8 reveal opacity-0">
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <Briefcase className="w-7 h-7 text-blue-500" />
+            Professional Experience
+          </h2>
+          <Accordion type="single" collapsible className="space-y-4">
+            {workExperience.map((job, index) => (
+              <AccordionItem
+                key={index}
+                value={`job-${index}`}
+                className={`rounded-lg border ${
+                  theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+                } hover:shadow-lg transition-all duration-300`}
+              >
+                <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                  <div className="flex flex-col items-start text-left w-full">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Building className="w-5 h-5 text-blue-500" />
+                      <h3 className="text-xl font-semibold">{job.title}</h3>
+                    </div>
+                    <div className="flex flex-wrap gap-4">
+                      <span className="text-blue-500">{job.company}</span>
+                      {job.location && (
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" />
+                          {job.location}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {job.period}
+                      </span>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4">
+                  <ul className={`space-y-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    {job.responsibilities.map((responsibility, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <span className="w-2 h-2 mt-2 flex-shrink-0 rounded-full bg-blue-500" />
+                        <span>{responsibility}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
 
-        {/* Accordion Sections */}
-        <Accordion type="single" collapsible className="space-y-3">
-          {resumeSections.map((section) => (
-            <AccordionItem
-              key={section.id}
-              value={section.id}
-              className={`rounded-xl border reveal opacity-0 ${
-                theme === 'dark' 
-                  ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800' 
-                  : 'bg-white/50 border-gray-200 hover:bg-white'
-              } hover:shadow-xl transition-all duration-300`}
-            >
-              <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                <h2 className="text-xl font-semibold">{section.title}</h2>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-3">
-                <div className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                  {section.content}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {/* Additional Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal opacity-0">
+          {/* AI Development */}
+          <Card className={`transform hover:scale-105 transition-all duration-300 ${
+            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+          }`}>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Bot className="w-6 h-6 text-blue-500" />
+                <h3 className="text-lg font-semibold">AI Development</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {additionalSkills.aiDev.map((skill, index) => (
+                  <span key={index} className={`px-3 py-1 rounded-full text-sm ${
+                    theme === 'dark' 
+                      ? 'bg-gray-700 text-gray-200' 
+                      : 'bg-gray-100 text-gray-700'
+                  }`}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* Add ScrollIndicator */}
+          {/* Support Tools */}
+          <Card className={`transform hover:scale-105 transition-all duration-300 ${
+            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+          }`}>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Wrench className="w-6 h-6 text-blue-500" />
+                <h3 className="text-lg font-semibold">Support Tools</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {additionalSkills.support.map((skill, index) => (
+                  <span key={index} className={`px-3 py-1 rounded-full text-sm ${
+                    theme === 'dark' 
+                      ? 'bg-gray-700 text-gray-200' 
+                      : 'bg-gray-100 text-gray-700'
+                  }`}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Professional Skills */}
+          <Card className={`transform hover:scale-105 transition-all duration-300 ${
+            theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-white/50 border-gray-200'
+          }`}>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Users className="w-6 h-6 text-blue-500" />
+                <h3 className="text-lg font-semibold">Professional Skills</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {additionalSkills.professional.map((skill, index) => (
+                  <span key={index} className={`px-3 py-1 rounded-full text-sm ${
+                    theme === 'dark' 
+                      ? 'bg-gray-700 text-gray-200' 
+                      : 'bg-gray-100 text-gray-700'
+                  }`}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Navigation */}
         <div className="flex justify-center pb-8">
           <NavigationIndicator 
             previousSection="projects" 
