@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { 
-  Bot, Code2, Network, Database, Shield, 
-  Users, BrainCircuit, LineChart, Target, Terminal 
+  Bot, Network, Database, Shield, 
+  Users, BrainCircuit, LineChart, Target
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
@@ -128,8 +128,8 @@ const Experience = ({ theme }) => {
     }
   };
 
-  const ProjectHighlight = ({ highlight }) => (
-    <div className="mb-6">
+  const ProjectHighlight = ({ highlight, isPreview = false }) => (
+    <div className={`${isPreview ? 'mb-2' : 'mb-6'}`}>
       <div className="flex justify-between items-start mb-2">
         <h4 className="text-lg font-semibold">{highlight.title}</h4>
         <span className={`px-3 py-1 rounded-full text-sm ${
@@ -140,14 +140,16 @@ const Experience = ({ theme }) => {
           {highlight.impact}
         </span>
       </div>
-      <ul className={`space-y-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-        {highlight.details.map((detail, idx) => (
-          <li key={idx} className="flex items-start gap-2">
-            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
-            <span>{detail}</span>
-          </li>
-        ))}
-      </ul>
+      {!isPreview && (
+        <ul className={`space-y-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          {highlight.details.map((detail, idx) => (
+            <li key={idx} className="flex items-start gap-2">
+              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+              <span>{detail}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 
@@ -249,7 +251,7 @@ const Experience = ({ theme }) => {
                         }`}
                       >
                         <AccordionTrigger className="px-4 hover:no-underline">
-                          <ProjectHighlight highlight={highlight} />
+                          <ProjectHighlight highlight={highlight} isPreview={true} />
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4">
                           <div className={`mt-4 p-4 rounded-lg ${
@@ -257,14 +259,7 @@ const Experience = ({ theme }) => {
                               ? 'bg-gray-700/50' 
                               : 'bg-gray-50'
                           }`}>
-                            <ul className="space-y-2">
-                              {highlight.details.map((detail, idx) => (
-                                <li key={idx} className="flex items-start gap-2">
-                                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
-                                  <span>{detail}</span>
-                                </li>
-                              ))}
-                            </ul>
+                            <ProjectHighlight highlight={highlight} isPreview={false} />
                           </div>
                         </AccordionContent>
                       </AccordionItem>
